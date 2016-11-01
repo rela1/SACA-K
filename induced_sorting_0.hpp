@@ -1,5 +1,5 @@
 #ifndef INDUCED_SORTING_0_H
-#def INDUCED_SORTING_0_H
+#define INDUCED_SORTING_0_H
 
 void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n);
 
