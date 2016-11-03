@@ -40,6 +40,8 @@ void induced_sort_SA_0(char * T, int * SA, int * bkt, int n, int n1) {
 		SA[i] = -1;
 		SA[bkt[c_j]--] = j;
 	}
+
+	return;
 }
 
 void induced_sort_L_0(char * T, int * SA, int * bkt, int n) {

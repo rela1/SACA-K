@@ -2,6 +2,8 @@ void fill_array(int * arr, int start, int end, int value) {
 	for(int i = start; i < end; ++i) {
 		arr[i] = value;
 	}
+
+	return;
 }
 
 void calculate_bucket_start(char * T, int * bkt, int K, int n) {
