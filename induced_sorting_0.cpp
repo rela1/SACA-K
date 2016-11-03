@@ -1,6 +1,6 @@
 #include <cstdio>
 
-void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n) {
+void induced_sort_T_0(char * T, int * SA, int * bkt, int n) {
 	// SA is expected to be filled with -1 with memset
 	// bkt is expected to point to end of each bucket
 
@@ -20,6 +20,19 @@ void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n) {
 	}
 
 	return;
+}
+
+void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n, int n1) {
+	// SA is expected to be filled with -1 from n1 to n-1
+	// bkt is expected to point to end of each bucket
+
+	// induced sort suffixes
+	for (int i = n1 - 1; i >= 0; --i) {
+		int j = SA[i];
+		char c_j = T[j];
+		SA[i] = -1;
+		SA[bkt[c_j]--] = j;
+	}
 }
 
 void induced_sort_L_0(char * T, int * SA, int * bkt, int n) {

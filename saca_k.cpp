@@ -2,14 +2,14 @@
 #include <cstring>
 #include <cstdio>
 
-void fill_array(int * arr, int n, int value) {
-	for(int i = 0; i < n; ++i) {
+void fill_array(int * arr, int start, int end, int value) {
+	for(int i = start; i < end; ++i) {
 		arr[i] = value;
 	}
 }
 
 void calculate_bucket_start(char * T, int * bkt, int K, int n) {
-	fill_array(bkt, K, 0);
+	fill_array(bkt, 0, K, 0);
 	for(int i = 0; i < n; ++i) {
 		bkt[T[i]]++;
 	}
@@ -24,7 +24,7 @@ void calculate_bucket_start(char * T, int * bkt, int K, int n) {
 }
 
 void calculate_bucket_end(char * T, int * bkt, int K, int n) {
-	fill_array(bkt, K, 0);
+	fill_array(bkt, 0, K, 0);
 	for(int i = 0; i < n; ++i) {
 		bkt[T[i]]++;
 	}
@@ -50,12 +50,12 @@ void saca_k(char * T, int * SA, int K, int n, int level) {
 	int * bkt;
 	if (level == 0) {
 		bkt = new int[K];
-		fill_array(bkt, K, 0);
-		fill_array(SA, n, -1);
+		fill_array(bkt, 0, K, 0);
+		fill_array(SA, 0, n, -1);
 		print_array(SA, n, "SA");
 		calculate_bucket_end(T, bkt, K, n);
 		print_array(bkt, K, "bkt");
-		induced_sort_LMS_0(T, SA, bkt, n);
+		induced_sort_T_0(T, SA, bkt, n);
 		print_array(SA, n, "SA");
 		calculate_bucket_start(T, bkt, K, n);
 		print_array(bkt, K, "bkt");
