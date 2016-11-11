@@ -1,3 +1,7 @@
+#include <cstdio>
+
+int EMPTY = 1 << ((sizeof(int) * 8) - 1);
+
 void fill_array(int * arr, int start, int end, int value) {
 	for(int i = start; i < end; ++i) {
 		arr[i] = value;
