@@ -57,7 +57,6 @@ void compact_SA_0(int * SA, char * T, int n){
 		int T_index = SA[i];
 		if(T[T_index] < 0){
 			SA[index++] = T_index;
-			T[T_index] = -T[T_index];
 		} 
 	}
 }
@@ -69,7 +68,6 @@ void compact_SA_1(int * SA, int n, int n1){
 		int T_index = SA[i];
 		if(SA[n - n1 + T_index] < 0){
 			SA[index++] = T_index;
-			SA[n - n1 + T_index] = -SA[n - n1 + T_index];
 		} 
 	}
 }
