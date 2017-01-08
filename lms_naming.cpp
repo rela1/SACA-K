@@ -1,12 +1,21 @@
-int reduce_string_1(int *SA, int n, int n1){
+#include "lms_naming.hpp"
+
+int reduce_string_1(int *SA, int n, int n1, int lms_count){
 
 
 	return 0;
 }
 
-int reduce_string_0(int *SA, char *T, int n){
-	
-
+int reduce_string_0(int *SA, char *T, int n, int lms_count){
+	int last_lms_start = n - 1;
+	int last_lms_length = 1;
+	int current_lms_rank = 1;
+	int index = n - lms_count;
+	SA[index++] = 0;
+	for(int i = 1; i < lms_count; ++i) {
+		int T_index = SA[i];
+		int lms_length = 
+	}
 	return 0;
 }
 
@@ -70,4 +79,18 @@ void compact_SA_1(int * SA, int n, int n1){
 			SA[index++] = T_index;
 		} 
 	}
+}
+
+int get_lms_length_0(int start_index, char * T) {
+	int length = 2;
+	start_index++;
+	while (T[start_index++] > 0) length++;
+	return length;
+}
+
+int get_lms_length_1(int start_index, int * SA, int n, int n1) {
+	int length = 2;
+	start_index = n - n1 + start_index + 1;
+	while (SA[start_index++] > 0) length++;
+	return length;
 }
