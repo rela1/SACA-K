@@ -14,7 +14,18 @@ int reduce_string_0(int *SA, char *T, int n, int lms_count){
 	SA[index++] = 0;
 	for(int i = 1; i < lms_count; ++i) {
 		int T_index = SA[i];
-		int lms_length = 
+		int lms_length = get_lms_length_0(T_index, T);
+		if (last_lms_length != lms_length) {
+			SA[index++] = current_lms_rank++;
+		} else {
+			bool lms_substrings_equal = true;
+			for(int j = 0; j < lms_length; ++j) {
+				if (T[last_lms_start + j] != T[T_index + j]) {
+					lms_substrings_equal = false;
+					break;
+				}
+			}
+		}
 	}
 	return 0;
 }
