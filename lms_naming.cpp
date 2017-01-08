@@ -27,6 +27,7 @@ int count_and_set_lms_0(char * T, int n){
 			last_char_s = false;
 		}
 	}
+	return count;
 }
 
 int count_and_set_lms_1(int * SA, int n, int n1){
@@ -45,5 +46,30 @@ int count_and_set_lms_1(int * SA, int n, int n1){
 		} else {
 			last_char_s = false;
 		}
+	}
+	return count;
+}
+
+void compact_SA_0(int * SA, char * T, int n){
+	int index = 1;
+	SA[0] = n - 1;
+	for(int i = 1; i < n; ++i){
+		int T_index = SA[i];
+		if(T[T_index] < 0){
+			SA[index++] = T_index;
+			T[T_index] = -T[T_index];
+		} 
+	}
+}
+
+void compact_SA_1(int * SA, int n, int n1){
+	int index = 1;
+	SA[0] = n1 - 1;
+	for(int i = 1; i < n1; ++i){
+		int T_index = SA[i];
+		if(SA[n - n1 + T_index] < 0){
+			SA[index++] = T_index;
+			SA[n - n1 + T_index] = -SA[n - n1 + T_index];
+		} 
 	}
 }

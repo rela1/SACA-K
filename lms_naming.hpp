@@ -9,4 +9,8 @@ int count_and_set_lms_0(char * T, int n);
 
 int count_and_set_lms_1(int * SA, int n, int n1);
 
+void compact_SA_0(int * SA, char * T, int n);
+
+void compact_SA_1(int * SA, int n, int n1);
+
 #endif
