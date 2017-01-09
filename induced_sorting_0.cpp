@@ -1,5 +1,4 @@
 #include "helper.hpp"
-#include <cstdio>
 
 void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n) {
 	// bkt is expected to point to end of each bucket

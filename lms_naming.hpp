@@ -1,5 +1,4 @@
 #include "helper.hpp"
-#include <cstdio>
 
 #ifndef LMS_NAMING_H
 #define LMS_NAMING_H
@@ -39,10 +38,6 @@ int reduce_string(int * SA, type T, int n, int lms_count) {
 		int T_index = SA[i];
 		int lms_length = get_lms_length(T_index, T);
 		int lms_position = lms_start_pos + (T_index - n % 2) / 2;
-		for(int i = T_index; i < T_index + lms_length; ++i) {
-			printf("%c", T[i] < 0 ? -T[i] : T[i]);
-		}
-		printf("\n");
 		if (last_lms_length == lms_length && lms_substrings_equal(last_lms_start, T_index, lms_length, T)) {
 			SA[lms_position] = current_lms_rank;
 			SA[current_lms_rank]++;

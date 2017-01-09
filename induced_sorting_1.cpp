@@ -1,5 +1,4 @@
 #include "helper.hpp"
-#include <cstdio>
 
 void store_suffix_empty(int * SA, int n, int i, int c, int direction) {
     int neighbour = c + direction;
@@ -22,8 +21,6 @@ void shift(int * SA, int start, int direction) {
 }
 
 void store_suffix(int * SA, int n, int i, int c, int direction) {
-    fflush(stdout);
-    printf("i=%d, SA_i=%d, c=%d, SA_c=%d\n", i, SA[i], c, SA[c]);
     int SA_c = SA[c];
     if(SA_c == EMPTY) {
         store_suffix_empty(SA, n, i, c ,direction);
@@ -60,7 +57,6 @@ void induced_sort_SA_1(int * T, int * SA, int n, int lms_count) {
     fill_array(SA, n - lms_count, n, EMPTY);
 
     SA[0] = n - 1;
-    print_array(SA, n, "SA");
     for(int i = lms_count - 1; i >= 0; --i) {
         int j = SA[i];
         int c_j = T[j];
@@ -70,8 +66,6 @@ void induced_sort_SA_1(int * T, int * SA, int n, int lms_count) {
 }
 
 void induced_sort_S_1(int * T, int * SA, int n) {
-    printf("S sort\n");
-    fflush(stdout);
     for(int i = n - 1; i >= 0; --i) {
         int SA_i = SA[i];
         if(SA_i > 0) {
@@ -86,8 +80,6 @@ void induced_sort_S_1(int * T, int * SA, int n) {
 }
 
 void induced_sort_L_1(int * T, int * SA, int n) {
-    printf("L sort\n");
-    fflush(stdout);
     for(int i = 0; i < n; ++i) {
         int SA_i = SA[i];
         if(SA_i > 0) {
