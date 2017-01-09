@@ -6,7 +6,7 @@
 #include <cstring>
 #include <cstdio>
 #include <algorithm>
-#include <string>
+#include <cstring>
 
 void saca_k(char * T, int * SA, int K, int n) {
 	int * bkt = new int[K];
@@ -64,6 +64,11 @@ void saca_k_1(int * T, int * SA, int n) {
 	induced_sort_S_1(T, SA, n);
 }
 
+bool test_suffixes(char * T, int s1_start, int s2_start, int n) {
+	int cmp = strcmp(T + s1_start, T + s2_start);
+	return cmp < 0;
+}
+
 int main() {
 	const char * test_ = "abracadabra0AbRa4Cad14abra";
 	char test[strlen(test_) + 1];
@@ -78,14 +83,11 @@ int main() {
 	for(int i = 0; i < n; ++i) {
 		printf("%d, ", sa[i]);
 	}
-	printf("\n");
 	for(int i = 0; i < n; ++i) {
 		int ind = sa[i];
-		if (ind >= 0) {
-			for(int j = ind; j < n; ++j) {
-				printf("%c", test[j]);
-			}
-			printf("\n");
-		}
+		printf("%s\n", test + ind);
+	}
+	for(int i = 0; i < n - 1; ++i) {
+		if (!test_suffixes(test, sa[i], sa[i + 1], n)) printf("test error: SA[%d]=%d, SA[%d]=%d, suffix(%s)>suffix(%s)\n", i, sa[i], i+1, sa[i+1], test + sa[i], test + sa[i+1]);
 	}
 }
