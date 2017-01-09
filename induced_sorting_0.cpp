@@ -2,11 +2,8 @@
 #include <cstdio>
 
 void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n) {
-	// SA is expected to be filled with EMPTY with memset
 	// bkt is expected to point to end of each bucket
 	fill_array(SA, 0, n, EMPTY);
-
-	print_array(SA, n, "SA");
 
 	SA[0] = n - 1;
 	bool last_char_s_type = false;
@@ -20,13 +17,12 @@ void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n) {
 }
 
 void induced_sort_SA_0(char * T, int * SA, int * bkt, int n, int lms_count) {
-	// SA is expected to be filled with EMPTY from n1 to n-1
 	// bkt is expected to point to end of each bucket
 	fill_array(SA, lms_count, n, EMPTY);
 
 	// induced sort suffixes
 	SA[0] = n - 1;
-	for (int i = lms_count - 1; i >= 0; --i) {
+	for (int i = lms_count - 1; i >= 1; --i) {
 		int j = SA[i];
 		char c_j = T[j];
 		SA[i] = EMPTY;
@@ -35,7 +31,7 @@ void induced_sort_SA_0(char * T, int * SA, int * bkt, int n, int lms_count) {
 }
 
 void induced_sort_L_0(char * T, int * SA, int * bkt, int n) {
-	// SA is expected to hold indexes of sorted LMS substrings, all other elements are -1
+	// SA is expected to hold indexes of sorted LMS substrings, all other elements are EMPTY
 	// bkt is expected to point to start of each bucket
 	
 	// sort L suffixes
@@ -52,7 +48,7 @@ void induced_sort_L_0(char * T, int * SA, int * bkt, int n) {
 }
 
 void induced_sort_S_0(char * T, int * SA, int * bkt, int n) {
-	// SA is expected to hold indexes of sorted LMS substrings and L suffixes, all other elements are -1
+	// SA is expected to hold indexes of sorted LMS substrings and L suffixes, all other elements are EMPTY
 	// bkt is expected to point to end of each bucket
 
 	// sort S suffixes
@@ -67,6 +63,4 @@ void induced_sort_S_0(char * T, int * SA, int * bkt, int n) {
 			}
 		}
 	}
-
-	return;
 }
