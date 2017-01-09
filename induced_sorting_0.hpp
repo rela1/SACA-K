@@ -3,7 +3,7 @@
 
 void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n);
 
-void induced_sort_SA_0(char * T, int * SA, int * bkt, int n, int n1);
+void induced_sort_SA_0(char * T, int * SA, int * bkt, int n, int lms_count);
 
 void induced_sort_S_0(char * T, int * SA, int * bkt, int n);
 

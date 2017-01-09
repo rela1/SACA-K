@@ -39,7 +39,7 @@ void calculate_bucket_end(char * T, int * bkt, int K, int n) {
 	return;
 }
 
-void print_array(int * arr, int n, char * name) {
+void print_array(int * arr, int n, const char * const name) {
 	printf("%s={", name);
 	for(int i = 0, length = n -1; i < length; ++i) {
 		printf("%d, ", arr[i]);
