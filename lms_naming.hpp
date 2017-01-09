@@ -39,7 +39,7 @@ int reduce_string(int * SA, type T, int n, int lms_count) {
 		int T_index = SA[i];
 		int lms_length = get_lms_length(T_index, T);
 		int lms_position = lms_start_pos + (T_index - n % 2) / 2;
-		for(int i = lms_position; i < lms_position + lms_length; ++i) {
+		for(int i = T_index; i < T_index + lms_length; ++i) {
 			printf("%c", T[i] < 0 ? -T[i] : T[i]);
 		}
 		printf("\n");
@@ -52,6 +52,8 @@ int reduce_string(int * SA, type T, int n, int lms_count) {
 			SA[lms_position] = current_lms_rank;
 			unique_lms_ranks++;
 		}
+		last_lms_start = T_index;
+		last_lms_length = lms_length;
 	}
 	int shift_count = 0;
 	for(int i = n - 2; i >= lms_start_pos; --i) {
@@ -133,7 +135,7 @@ void induce_lms(int * SA, int * T_1, int lms_count, type T, int n) {
 	for (int i = n - 3; i >= 0; --i) {
 		bool this_char_s_type = (T[i] < T[i + 1] || (T[i] == T[i + 1] && last_char_s_type)) ? true : false;
 		if (!this_char_s_type && last_char_s_type) {
-			T_1[index--] = i;
+			T_1[index--] = i + 1;
 		}
 		last_char_s_type = this_char_s_type;
 	}

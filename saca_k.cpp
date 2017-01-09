@@ -6,6 +6,7 @@
 #include <cstring>
 #include <cstdio>
 #include <algorithm>
+#include <string>
 
 void saca_k(char * T, int * SA, int K, int n) {
 	int * bkt = new int[K];
@@ -19,6 +20,7 @@ void saca_k(char * T, int * SA, int K, int n) {
 	int lms_count = count_and_set_lms(T, n);
 	printf("%s\n", T);
 	compact_lms(SA, T, n);
+	print_array(SA, n, "SA");
 	int unique_lms_ranks = reduce_string(SA, T, n, lms_count);
 	unset_lms(T, n);
 	int * T_1 = SA + n - lms_count;
@@ -50,7 +52,9 @@ void saca_k(char * T, int * SA, int K, int n) {
 }
 
 void saca_k_1(int * T, int * SA, int n) {
-	printf("in lvl1");
+	printf("in lvl1\n");
+	print_array(SA, n, "SA");
+	print_array(T, n, "T");
 	fflush(stdout);
 	induced_sort_LMS_1(T, SA, n);
 	induced_sort_L_1(T, SA, n);
@@ -61,6 +65,8 @@ void saca_k_1(int * T, int * SA, int n) {
 	int unique_lms_ranks = reduce_string(SA, T, n, lms_count);
 	unset_lms(T, n);
 	int * T_1 = SA + n - lms_count;
+	printf("n=%d, lms count = %d, unique_lms=%d\n", n, lms_count, unique_lms_ranks);
+	print_array(T_1, lms_count, "T_1");
 	if (unique_lms_ranks == lms_count) {
 		for(int i = 0; i < lms_count; ++i) {
 			SA[T_1[i]] = i;
@@ -68,23 +74,37 @@ void saca_k_1(int * T, int * SA, int n) {
 	} else {
 		saca_k_1(T_1, SA, lms_count);
 	}
+	print_array(SA, n, "SA");
+	print_array(T, n, "T");
 	induce_lms(SA, T_1, lms_count, T, n);
-
+print_array(SA, n, "SA");
+	print_array(T, n, "T");
 	induced_sort_SA_1(T, SA, n, lms_count);
+	print_array(SA, n, "SA");
+	print_array(T, n, "T");
 	induced_sort_L_1(T, SA, n);
+	print_array(SA, n, "SA");
+	print_array(T, n, "T");
 	induced_sort_S_1(T, SA, n);
+	print_array(SA, n, "SA");
+	print_array(T, n, "T");
 }
 
 int main() {
-	char test[] = {'t', 'h', 'i', 's', ' ', 'i', 's', ' ', 't', 'e', 's',  0};
-	int sa[strlen(test) + 1];
+	const char * test_ = "mmiissiissiippii";
+	char test[strlen(test_) + 1];
+	for(int i = 0; i < strlen(test_); ++i) {
+		test[i] = test_[i];
+	}
+	test[strlen(test_)] = 0;
+	int n = 17;
+	int sa[n];
 	printf("%s\n", test);
-	saca_k(test, sa, 128, strlen(test) + 1);
-	for(int i = 0; i < strlen(test) + 1; ++i) {
+	saca_k(test, sa, 128, n);
+	for(int i = 0; i < n; ++i) {
 		printf("%d, ", sa[i]);
 	}
 	printf("\n");
-	int n = strlen(test) + 1;
 	for(int i = 0; i < n; ++i) {
 		int ind = sa[i];
 		if (ind >= 0) {

@@ -3,7 +3,7 @@
 
 void store_suffix_empty(int * SA, int n, int i, int c, int direction) {
     int neighbour = c + direction;
-    if(neighbour < n && SA[neighbour] == EMPTY) {
+    if(neighbour < n && neighbour > 0 && SA[neighbour] == EMPTY) {
         SA[neighbour] = i;
         SA[c] = -1;
     } else {
@@ -59,10 +59,12 @@ void induced_sort_LMS_1(int * T, int * SA, int n) {
 void induced_sort_SA_1(int * T, int * SA, int n, int lms_count) {
     fill_array(SA, n - lms_count, n, EMPTY);
 
+    SA[0] = n - 1;
+    print_array(SA, n, "SA");
     for(int i = lms_count - 1; i >= 0; --i) {
         int j = SA[i];
         int c_j = T[j];
-        store_suffix(SA, n, j, c_j, -1);
+        SA[c_j] = j;//store_suffix(SA, n, j, c_j, -1);
         SA[i] = EMPTY;
     }
 }
