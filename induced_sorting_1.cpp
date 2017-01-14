@@ -1,11 +1,6 @@
 #include "helper.hpp"
 #include <cstdio>
 
-void store_suffix_try(int * SA, int index, int bucket_start, int direction) {
-    while(SA[bucket_start] != EMPTY) bucket_start += direction;
-    SA[bucket_start] = index;
-}
-
 void store_suffix_empty(int * SA, int n, int i, int c, int direction) {
     int neighbour = c + direction;
     if(neighbour < n && neighbour > 0 && SA[neighbour] == EMPTY) {
@@ -55,17 +50,17 @@ int store_suffix(int * SA, int n, int i, int c, int direction) {
 
 void induced_sort_LMS_1(int * T, int * SA, int n) {
     fill_array(SA, 0, n, EMPTY);
-
     SA[0] = n - 1;
     bool last_char_s_type = false;
+    int T_i_1 = T[n - 2];
     for (int i = n - 3; i >= 0; --i) {
         int T_i = T[i];
-        int T_i_1 = T[i + 1];
         bool this_char_s_type = (T_i < T_i_1 || (T_i == T_i_1 && last_char_s_type)) ? true : false;
         if (!this_char_s_type && last_char_s_type) {
             store_suffix(SA, n, i+1, T_i_1, -1);
         }
         last_char_s_type = this_char_s_type;
+        T_i_1 = T_i;
     }
 
     for(int i = 1; i < n; ++i) {
@@ -109,7 +104,6 @@ void induced_sort_S_1(int * T, int * SA, int n) {
             int T_SA_i = T[SA_i];
             if((T_j < T_SA_i) || (T_j == T_SA_i && T_j > i)) {
                 int final_index = store_suffix(SA, n, j, T_j, -1);
-                //print_array(SA, n, "SA");
                 if (final_index != -1 && final_index > i) {
                     i++;
                 }
@@ -124,18 +118,17 @@ void induced_sort_L_1(int * T, int * SA, int n) {
         if(SA_i > 0) {
             int j = SA_i - 1;
             int T_j = T[j];
-            if(T_j >= T[SA_i]) {
-                //printf("%d %d %d %d\n", i, j, T_j, T[SA_i]);
+            int T_SA_i = T[SA_i];
+            if(T_j >= T_SA_i) {
                 int final_index = store_suffix(SA, n, j, T_j, 1);
-                int c2;
-                bool isL1=(SA_i < n-1) && (T[SA_i]>(c2=T[SA_i + 1]) || (T[SA_i]==c2 && T[SA_i]<i));  // is s[SA[i]] L-type?
-                if (!isL1 && i > 0) {
+                int T_SA_i_1 = T[SA_i + 1];
+                bool isLType=(SA_i < n-1) && (T_SA_i>T_SA_i_1 || (T_SA_i == T_SA_i_1 && T_SA_i < i));
+                if (!isLType && i > 0) {
                     SA[i] = EMPTY;
                 }
                 if (final_index != -1 && final_index < i) {
                     i--;
                 }
-                //print_array(SA, n, "SA");
             }
         }
     }

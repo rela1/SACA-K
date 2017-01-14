@@ -35,8 +35,6 @@ int reduce_string(int * SA, type T, int n, int lms_count) {
 	SA[n - 1] = current_lms_rank;
 	SA[current_lms_rank] = 1;
 	unique_lms_ranks++;
-	double counts = 0;
-	int ranks = 0;
 	for(int i = 1; i < lms_count; ++i) {
 		int T_index = SA[i];
 		int lms_length = get_lms_length(T_index, T);
@@ -45,7 +43,6 @@ int reduce_string(int * SA, type T, int n, int lms_count) {
 			SA[lms_position] = current_lms_rank;
 			SA[current_lms_rank]++;
 		} else {
-			counts += SA[current_lms_rank];
 			current_lms_rank += SA[current_lms_rank];
 			SA[current_lms_rank] = 1;
 			SA[lms_position] = current_lms_rank;
@@ -54,7 +51,6 @@ int reduce_string(int * SA, type T, int n, int lms_count) {
 		last_lms_start = T_index;
 		last_lms_length = lms_length;
 	}
-	//print_array(SA + lms_start_pos, n / 2, "SA_naming_before_shift");
 	int shift_count = 0;
 	for(int i = n - 2; i >= lms_start_pos; --i) {
 		if (SA[i] == EMPTY) {
@@ -63,18 +59,19 @@ int reduce_string(int * SA, type T, int n, int lms_count) {
 			SA[i + shift_count] = SA[i];
 		}
 	}
-	//print_array(SA + n - lms_start_pos, n / 2, "SA_naming_after_shift");
 	bool last_char_s_type = false;
+	int SA_i_1 = SA[n - 2];
 	for (int i = n - 3, limit = n - lms_count; i >= limit; --i) {
-		bool this_char_s_type = (SA[i] < SA[i + 1] || (SA[i] == SA[i + 1] && last_char_s_type)) ? true : false;
+		int SA_i = SA[i];
+		bool this_char_s_type = (SA_i < SA_i_1 || (SA_i == SA_i_1 && last_char_s_type)) ? true : false;
 		if (this_char_s_type) {
 			int lms_rank = SA[i];
 			int lms_count = SA[lms_rank];
 			SA[i] += (lms_count - 1);
 		}
 		last_char_s_type = this_char_s_type;
+		SA_i_1 = SA_i;
 	}
-	printf("AVERAGE LMS COUNTS: %f\n", counts / unique_lms_ranks);
 	return unique_lms_ranks;
 }
 
@@ -104,20 +101,14 @@ void unset_lms(type T, int n) {
 
 template <typename type>
 void compact_lms(int * SA, type T, int n) {
-	//print_array(SA, n, "SA");
 	SA[0] = n - 1;
 	int index = 1;
 	for(int i = 1; i < n; ++i) {
 		int T_index = SA[i];
-		if (T_index < 0) {
-			print_array(SA, n, "SA");
-			print_array((int * )T, n, "T");
-		}
 		if (T[T_index] < 0) {
 			SA[index++] = T_index;
 		}
 	}
-	printf("after compacting index=%d\n", index);
 }
 
 template <typename type>
@@ -140,12 +131,15 @@ template <typename type>
 void induce_lms(int * SA, int * T_1, int lms_count, type T, int n) {
 	int index = lms_count - 2;
 	bool last_char_s_type = false;
+	int T_i_1 = T[n - 2];
 	for (int i = n - 3; i >= 0; --i) {
-		bool this_char_s_type = (T[i] < T[i + 1] || (T[i] == T[i + 1] && last_char_s_type)) ? true : false;
+		int T_i = T[i];
+		bool this_char_s_type = (T_i < T_i_1 || (T_i == T_i_1 && last_char_s_type)) ? true : false;
 		if (!this_char_s_type && last_char_s_type) {
 			T_1[index--] = i + 1;
 		}
 		last_char_s_type = this_char_s_type;
+		T_i_1 = T_i;
 	}
 	for(int i = 1; i < lms_count; ++i) {
 		SA[i] = T_1[SA[i]];
