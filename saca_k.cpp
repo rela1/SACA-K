@@ -2,8 +2,6 @@
 #include "induced_sorting_1.hpp"
 #include "lms_naming.hpp"
 #include "saca_k.hpp"
-#include "helper.hpp"
-#include <cstdio>
 
 /**
     Constructs suffix array of given array of characters into given suffix array.
@@ -28,7 +26,6 @@ void saca_k(char * T, int * SA, int K, int n) {
 	int unique_lms_ranks = reduce_string(SA, T, n, lms_count);
 	unset_lms(T, n);
 	int * T_1 = SA + n - lms_count;
-	printf("%d %d\n", lms_count, unique_lms_ranks);
 	if (unique_lms_ranks == lms_count) {
 		for(int i = 0; i < lms_count; ++i) {
 			SA[T_1[i]] = i;
