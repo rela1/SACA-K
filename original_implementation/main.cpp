@@ -19,8 +19,6 @@ long get_peak_used_memory() {
 
 int main(int argc, char const *argv[])
 {
-	printf("%s\n", argv[1]);
-	printf("%s\n", argv[2]);
 	FILE * f = fopen(argv[1], "rb");
 	if (f == NULL) {
 		perror("Cannot open input file!\n");

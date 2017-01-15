@@ -1,6 +1,12 @@
 # Hidden files
 .*
 
+# output and statistics files
+*.out
+*.stat
+*.original_out
+*.original_stat
+
 # Compiled Object files
 *.slo
 *.lo
