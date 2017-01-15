@@ -1,5 +1,14 @@
 #include "helper.hpp"
 
+/**
+    Used for inducing the sort of the LMS substrings.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param bkt array of bucket counters
+    @param n size of input and output arrays
+    @author Goran Golub
+*/
 void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n) {
 	fill_array(SA, 0, n, EMPTY);
 	SA[0] = n - 1;
@@ -16,6 +25,16 @@ void induced_sort_LMS_0(char * T, int * SA, int * bkt, int n) {
 	}
 }
 
+/**
+    Used for putting the sorted LMS-substrings in ther correct bucket in suffix array.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param bkt array of bucket counters
+    @param n size of input and output arrays
+    @param lms_count size of reduced string
+    @author Goran Golub
+*/
 void induced_sort_SA_0(char * T, int * SA, int * bkt, int n, int lms_count) {
 	fill_array(SA, lms_count, n, EMPTY);
 	SA[0] = n - 1;
@@ -27,6 +46,15 @@ void induced_sort_SA_0(char * T, int * SA, int * bkt, int n, int lms_count) {
 	}
 }
 
+/**
+    Used for inducing the sort of the L type suffixes.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param bkt array of bucket counters
+    @param n size of input and output arrays
+    @author Goran Golub
+*/
 void induced_sort_L_0(char * T, int * SA, int * bkt, int n) {
 	for(int i = 0; i < n; ++i) {
 		int SA_i = SA[i];
@@ -40,6 +68,15 @@ void induced_sort_L_0(char * T, int * SA, int * bkt, int n) {
 	}
 }
 
+/**
+    Used for inducing the sort of the S type suffixes.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param bkt array of bucket counters
+    @param n size of input and output arrays
+    @author Goran Golub
+*/
 void induced_sort_S_0(char * T, int * SA, int * bkt, int n) {
 	for(int i = n - 1; i >= 0; --i) {
 		int SA_i = SA[i];

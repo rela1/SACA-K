@@ -5,26 +5,27 @@
 #include "helper.hpp"
 #include <cstdio>
 
+/**
+    Constructs suffix array of given array of characters into given suffix array.
+
+    @param T input array
+    @param SA output suffix array
+    @param K alphabet size
+    @param n size of input and output suffix array
+    @author Ivan Relic
+*/
 void saca_k(char * T, int * SA, int K, int n) {
 	int * bkt = new int[K];
 	calculate_bucket_end(T, bkt, K, n);
-	print_array(bkt, K, "bkt");
 	induced_sort_LMS_0(T, SA, bkt, n);
-	print_array(SA, n, "SA_LMS");
 	calculate_bucket_start(T, bkt, K, n);
-	print_array(bkt, K, "bkt");
 	induced_sort_L_0(T, SA, bkt, n);
-	print_array(SA, n, "SA_L");
 	calculate_bucket_end(T, bkt, K, n);
-	print_array(bkt, K, "bkt");
 	induced_sort_S_0(T, SA, bkt, n);
-	print_array(SA, n, "SA_S");
 
 	int lms_count = count_and_set_lms(T, n);
 	compact_lms(SA, T, n);
-	print_array(SA, n, "SA_comp");
 	int unique_lms_ranks = reduce_string(SA, T, n, lms_count);
-	print_array(SA, n, "SA_red");
 	unset_lms(T, n);
 	int * T_1 = SA + n - lms_count;
 	printf("%d %d\n", lms_count, unique_lms_ranks);
@@ -46,6 +47,14 @@ void saca_k(char * T, int * SA, int K, int n) {
 	delete [] bkt;
 }
 
+/**
+    Used for deeper recursion calls in generating suffix array.
+
+    @param T input array
+    @param SA output suffix array
+    @param n size of input and output suffix array
+    @author Ivan Relic
+*/
 void saca_k_1(int * T, int * SA, int n) {
 	induced_sort_LMS_1(T, SA, n);
 	induced_sort_L_1(T, SA, n);

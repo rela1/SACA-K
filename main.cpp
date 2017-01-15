@@ -7,12 +7,25 @@
 #include <sys/resource.h>
 #include "saca_k.hpp"
 
+/**
+    Used for getting the peak used memory in bytes.
+
+    @return peak used memory in bytes
+    @author Ivan Relic
+*/
 long get_peak_used_memory() {
 	struct rusage rusage;
-    getrusage( RUSAGE_SELF, &rusage );
+    getrusage(RUSAGE_SELF, &rusage);
     return (long)(rusage.ru_maxrss * 1024L);
 }
 
+/**
+    Main endpoint for calculating the suffix array.
+
+	@param argc number of arguments
+	@param argv array of arguments; argument on index 1 is expected to be input file and argument on index 2 is expected to be output file for suffix array of input file
+    @author Ivan Relic
+*/
 int main(int argc, char const *argv[])
 {
 	FILE * f = fopen(argv[1], "rb");

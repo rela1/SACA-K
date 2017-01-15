@@ -1,6 +1,16 @@
 #include "helper.hpp"
 #include <cstdio>
 
+/**
+    Used for storing the suffix on empty place in suffix array.
+
+    @param SA output array for storing the suffix array
+    @param n size of input and output arrays
+    @param i index to be stored
+    @param c bucket start/end depending on type of suffix that is to be stored
+    @param direction direction where to go while storing suffixes - direction is 1 for storing the S type sufixes and it's 0 for storing the L type suffixes
+    @author Goran Golub, Ivan Relic
+*/
 void store_suffix_empty(int * SA, int n, int i, int c, int direction) {
     int neighbour = c + direction;
     if(neighbour < n && neighbour > 0 && SA[neighbour] == EMPTY) {
@@ -10,7 +20,15 @@ void store_suffix_empty(int * SA, int n, int i, int c, int direction) {
         SA[c] = i;
     }
 }
+/**
+    Used for shifting the elements in given suffix array from the start in the oposite of given directon.
 
+    @param SA output array for storing the suffix array
+    @param start starting index
+    @param direction direction where to shift - 1 for left shift, -1 for right shift
+    @return returns index of element that was last shifted
+    @author Goran Golub, Ivan Relic
+*/
 int shift(int * SA, int start, int direction) {
     int index = start;
     int previous_item = SA[index];
@@ -25,6 +43,17 @@ int shift(int * SA, int start, int direction) {
     return index;
 }
 
+/**
+    Used for storing of the suffix. Type of suffix is determined by direction.
+
+    @param SA output array for storing the suffix array
+    @paramn n size of output suffix array
+    @param i index to be stored
+    @param c bucket start/end depending on type of suffix that is to be stored
+    @param direction direction where to go while storing suffixes - direction is 1 for storing the S type sufixes and it's 0 for storing the L type suffixes
+    @return returns index of element that was last shifted; it there was no shifting, return value is -1
+    @author Goran Golub, Ivan Relic
+*/
 int store_suffix(int * SA, int n, int i, int c, int direction) {
     int SA_c = SA[c];
     if(SA_c == EMPTY) {
@@ -48,6 +77,14 @@ int store_suffix(int * SA, int n, int i, int c, int direction) {
     }
 }
 
+/**
+    Used for inducing the sort of the LMS substrings.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param n size of input and output arrays
+    @author Goran Golub, Ivan Relic
+*/
 void induced_sort_LMS_1(int * T, int * SA, int n) {
     fill_array(SA, 0, n, EMPTY);
     SA[0] = n - 1;
@@ -74,6 +111,15 @@ void induced_sort_LMS_1(int * T, int * SA, int n) {
     }
 }
 
+/**
+    Used for putting the sorted LMS-substrings in ther correct bucket in suffix array.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param n size of input and output arrays
+    @param lms_count size of reduced string
+    @author Goran Golub, Ivan Relic
+*/
 void induced_sort_SA_1(int * T, int * SA, int n, int lms_count) {
     fill_array(SA, lms_count, n, EMPTY);
     SA[0] = n - 1;
@@ -92,6 +138,14 @@ void induced_sort_SA_1(int * T, int * SA, int n, int lms_count) {
     }
 }
 
+/**
+    Used for inducing the sort of the S type suffixes.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param n size of input and output arrays
+    @author Goran Golub, Ivan Relic
+*/
 void induced_sort_S_1(int * T, int * SA, int n) { 
     for(int i = n - 1; i >= 0; --i) {
         int SA_i = SA[i];
@@ -109,6 +163,14 @@ void induced_sort_S_1(int * T, int * SA, int n) {
     }
 }
 
+/**
+    Used for inducing the sort of the L type suffixes.
+
+    @param T input array
+    @param SA output array for storing the suffix array
+    @param n size of input and output arrays
+    @author Goran Golub, Ivan Relic
+*/
 void induced_sort_L_1(int * T, int * SA, int n) {
     for(int i = 0; i < n; ++i) {
         int SA_i = SA[i];

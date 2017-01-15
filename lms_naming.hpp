@@ -4,23 +4,88 @@
 #ifndef LMS_NAMING_H
 #define LMS_NAMING_H
 
+/**
+    Used for generating the reduced string from given data.
+
+	@param SA output suffix array used for storing the reduced data
+	@param T input array
+	@param n size of input array
+	@param lms_count number of LMS-substrings in original string
+	@return number of unique LMS-substring ranks
+	@author Josip Mandic
+*/
 template <typename type>
 int reduce_string(int * SA, type T, int n, int lms_count);
 
+/**
+    Used for setting the LMS-characters to their negatives in input array.
+
+	@param T input array
+	@param n size of input array
+	@return number of LMS-substrings in input data T
+	@author Josip Mandic
+*/
 template <typename type>
 int count_and_set_lms(type T, int n);
 
+/**
+    Used for unsetting the LMS-characters to their negatives in input array.
+
+	@param T input array
+	@param n size of input array
+	@author Josip Mandic
+*/
 template <typename type>
 void unset_lms(type T, int n);
 
+/**
+    Used for compacting the LMS-substrings to first items in suffix array.
+
+	@param SA output suffix array
+	@param T input array
+	@param n size of input array
+	@author Josip Mandic
+*/
 template <typename type>
 void compact_lms(int * SA, type T, int n);
 
+/**
+    Used for checking if two LMS-substrings are equal.
+
+	@param lms1_start_index start of the first LMS-substring
+	@param lms2_start_index start of the second LMS-substring
+	@param lms_length length of LMS-substrings
+	@param T input array
+	@return true if LMS-substrings are equal, false otherwise
+	@author Josip Mandic
+*/
 template <typename type>
 bool lms_substrings_equal(int lms1_start_index, int lms2_start_index, int lms_length, type T);
 
+/**
+    Used for finding the length of LMS-substring.
+
+	@param start_index starting indes of LMS-substring
+	@param T input array
+	@return length of LMS-substring
+	@author Josip Mandic
+*/
 template <typename type>
 int get_lms_length(int start_index, type T);
+
+/**
+    Used for inducing the sort of the suffix array from suffix array of reduced string, reduced string and original string.
+
+	@param SA output suffix array
+	@param T_1 reduced string
+	@param lms_count number of LMS-substrings in original string
+	@param T input array
+	@param n size of input array
+	@return true if LMS-substrings are equal, false otherwise
+	@author Josip Mandic
+*/
+template <typename type>
+void induce_lms(int * SA, int * T_1, int lms_count, type T, int n);
 
 template <typename type>
 int reduce_string(int * SA, type T, int n, int lms_count) {
