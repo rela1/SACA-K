@@ -62,7 +62,6 @@ void induced_sort_LMS_1(int * T, int * SA, int n) {
         last_char_s_type = this_char_s_type;
         T_i_1 = T_i;
     }
-
     for(int i = 1; i < n; ++i) {
         int SA_i = SA[i];
         if (SA_i < 0 && SA_i != EMPTY) {
@@ -77,8 +76,6 @@ void induced_sort_LMS_1(int * T, int * SA, int n) {
 
 void induced_sort_SA_1(int * T, int * SA, int n, int lms_count) {
     fill_array(SA, lms_count, n, EMPTY);
-    //print_array(SA, n, "SA");
-
     SA[0] = n - 1;
     int bucket = 0, index = 0;
     for(int i = lms_count - 1; i > 0; --i) {
@@ -132,7 +129,6 @@ void induced_sort_L_1(int * T, int * SA, int n) {
             }
         }
     }
-
     for(int i = 1; i < n; ++i) {
         int SA_i = SA[i];
         if (SA_i < 0 && SA_i != EMPTY) {
