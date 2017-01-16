@@ -2,6 +2,7 @@
 #include "induced_sorting_1.hpp"
 #include "lms_naming.hpp"
 #include "saca_k.hpp"
+#include "helper.hpp"
 
 /**
     Constructs suffix array of given array of characters into given suffix array.
